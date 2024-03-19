@@ -1,10 +1,10 @@
 
 package e1_11.atp_tour;
 
-/**
- *
- * @author Pera
- */
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+
 public class Atp_tour {
 
     public static void main(String[] args) {
@@ -14,6 +14,7 @@ public class Atp_tour {
         
         System.out.println("If Novak serves chance for winning a point is : " + p1.servePointChance(p2,"hard"));
         System.out.println("If Danil serves chance for winning a point is : " + p2.servePointChance(p1,"hard"));
+        
         
     }
 }
