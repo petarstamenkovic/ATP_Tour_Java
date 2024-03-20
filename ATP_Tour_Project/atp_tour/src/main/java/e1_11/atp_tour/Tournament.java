@@ -4,7 +4,7 @@ package e1_11.atp_tour;
 import java.util.ArrayList;
 
 
-public abstract class Tournament {
+public  class Tournament {
     // Atributes
     protected String tourName;
     protected String tourType;
@@ -14,14 +14,11 @@ public abstract class Tournament {
     protected ArrayList<Player> contestants;
     
     // Methods
-
-    public Tournament(String tourName, String tourType, String tourSurface, boolean playable, int numOfSets, ArrayList<Player> contestants) {
+    public Tournament(String tourName, String tourType, String tourSurface) {
         this.tourName = tourName;
         this.tourType = tourType;
         this.tourSurface = tourSurface;
-        this.playable = playable;
-        this.numOfSets = numOfSets;
-        this.contestants = contestants;
+
     }
     
     public String getTourName() {
@@ -65,7 +62,7 @@ public abstract class Tournament {
     }
     
     
-    abstract public void play();
+    //abstract public void play();
     
     
 }

@@ -5,16 +5,29 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import java.io.File;
+import java.io.IOException;
 public class Atp_tour {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
-        Player p1 = new Player("Novak Djokovic" , "mentality" , "hard" , 1 , 0 , false);
-        Player p2 = new Player("Danil Medvedev" , "serve" , "hard" , 4 , 0 , false);
+ 
+        ArrayList<Player> players = new ArrayList<>();
+        ArrayList<Tournament> tournaments = new ArrayList<>();
         
-        System.out.println("If Novak serves chance for winning a point is : " + p1.servePointChance(p2,"hard"));
-        System.out.println("If Danil serves chance for winning a point is : " + p2.servePointChance(p1,"hard"));
+        Championship champ = new Championship(players,tournaments);
+        champ.loadFiles();
         
+        Match m1 = new Match(players.get(1),players.get(2),3,"hard");
+        m1.playMatch();
+        System.out.println("""
+                           Match stats -> 
+                           """ + m1);
+        
+        //Player p1 = new Player("Novak Djokovic" , "mentality" , "hard" , 1 , 0);
+        //Player p2 = new Player("Danil Medvedev" , "serve" , "hard" , 4 , 0);
+        //System.out.println("If Novak serves chance for winning a point is : " + p1.servePointChance(p2,"hard"));
+        //System.out.println("If Danil serves chance for winning a point is : " + p2.servePointChance(p1,"hard"));
         
     }
 }

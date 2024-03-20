@@ -1,7 +1,7 @@
 
 package e1_11.atp_tour;
 
-public class Player {
+public class Player /*implements Comparable */{
     // Atributes
     private String name;
     private String ability;
@@ -62,13 +62,12 @@ public class Player {
     }
 
     // Constructor with parameters
-    public Player(String name, String ability, String preferedSurface, int atpRank, int atpPoints, boolean injured) {
+    public Player(int atpRank, String name, String ability, String preferedSurface, int atpPoints) {
         this.name = name;
         this.ability = ability;
         this.preferedSurface = preferedSurface;
         this.atpRank = atpRank;
         this.atpPoints = atpPoints;
-        this.injured = injured;
     }
     
     // Method that calucaltes the chance of winning a point on serve
@@ -125,4 +124,8 @@ public class Player {
         return "Igrac : " + this.name + "," + "Adut: " + this.ability + "," + "Atp Rank: " + this.atpRank + ":" + this.atpPoints + "," + "Prefered surface: " + this.preferedSurface;
     }
     
+    /*
+    @Override
+    public compareTo(Player p2){} // Sortiranje po atp ranku koristi Integer.compareTo(int x, int y)
+    */
 }
