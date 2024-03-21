@@ -1,7 +1,7 @@
 
 package e1_11.atp_tour;
 
-public class Player /*implements Comparable */{
+public class Player implements Comparable<Player> {
     // Atributes
     private String name;
     private String ability;
@@ -124,8 +124,16 @@ public class Player /*implements Comparable */{
         return "Igrac : " + this.name + "," + "Adut: " + this.ability + "," + "Atp Rank: " + this.atpRank + ":" + this.atpPoints + "," + "Prefered surface: " + this.preferedSurface;
     }
     
-    /*
+    
+    // Sorting players by their atpPoints - to be tested when you finish a seasonTournament
     @Override
-    public compareTo(Player p2){} // Sortiranje po atp ranku koristi Integer.compareTo(int x, int y)
-    */
+    public int compareTo(Player p2)
+    {
+        if (this.atpPoints > p2.atpPoints) 
+                return 1;
+        else 
+                return -1;
+    
+    }
+    
 }

@@ -13,9 +13,9 @@ public class Match {
     private int p1Gems;
     private int p2Sets;
     private int p2Gems;
-    private int p1ScoreSet[]; // These arrays are used for storing info and printing out match points
+    private int p1ScoreSet[];
     private int p2ScoreSet[];
-    protected int serve;
+    private int serve;
     private int currentSet;
     
     // Methods
@@ -29,7 +29,7 @@ public class Match {
         this.p2Gems = 0;
         this.p1Sets = 0;
         this.p2Sets = 0;
-        this.currentSet = 0;
+        this.currentSet = 0;                    // The set that is currently being played, used for indexing the p1ScoreSet and p2ScoreSet
         this.p1ScoreSet = new int[winSetNum+2]; 
         this.p2ScoreSet = new int[winSetNum+2];
     }
@@ -43,14 +43,19 @@ public class Match {
         if(injury == 1)
         {
             this.p1.setInjured(true);
+            this.p2Sets = this.winSetNum;
+            this.p1Sets = 0;
             return p2;
         }
         else if(injury == 2)
         {
             this.p2.setInjured(true);
+            this.p1Sets = this.winSetNum;
+            this.p2Sets = 0;
             return p1;
         }
         
+        // Match ending mechanism
         while(this.p1Sets < this.winSetNum || this.p2Sets < this.winSetNum)
         {
             this.playSet();
@@ -72,6 +77,7 @@ public class Match {
         int p2Points = 0;
         while(true)
         {
+            // Switch block is where the points are achieved
             switch(this.serve)
             {
                 case 0: // Player 1 serves
@@ -97,21 +103,17 @@ public class Match {
                     if(p1Points > p2Points)
                     {
                         this.p1Gems++;
-                        //p1Points = 0;
-                        //p2Points = 0;
                         break;
                     }
                     else
                     {
                         this.p2Gems++;
-                        //p1Points = 0;
-                        //p2Points = 0;
                         break;
                     }
                 }
             }
             
-            // Deuce
+            // Deuce situation
             if (p1Points == 3 && p2Points == 3) 
             {
                 while (true) 
@@ -122,8 +124,6 @@ public class Match {
                         if (p1Points - p2Points >= 2) 
                         {
                             this.p1Gems++;
-                            //p1Points = 0;
-                            //p2Points = 0;
                             break;
                         }
                     } 
@@ -132,8 +132,6 @@ public class Match {
                         p2Points++;
                         if (p2Points - p1Points >= 2)
                         {
-                            //p1Points = 0;
-                            //p2Points = 0;
                             this.p2Gems++;
                             break;
                         }
@@ -143,19 +141,21 @@ public class Match {
             } 
         }
     }
+    
+    
     private void playSet()
     {
         this.serve = 0;
         while(true)
         {
             this.playGame();
-            this.serve = 1 - this.serve;
+            this.serve = 1 - this.serve; // After a played game, change the player to serve
+            // End set mechanisms, 6/4 or 7/5 on both sides
             if(this.p1Gems == 6 && this.p2Gems <= 4)
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                if(this.currentSet <= 3)
-                    this.currentSet++;
+                this.currentSet++;
                 this.p1Sets++;
                 this.p1Gems = 0;
                 this.p2Gems = 0;
@@ -165,8 +165,7 @@ public class Match {
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                if(this.currentSet <= 3)
-                    this.currentSet++;
+                this.currentSet++;
                 this.p1Sets++;
                 this.p1Gems = 0;
                 this.p2Gems = 0;
@@ -176,8 +175,7 @@ public class Match {
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                if(this.currentSet <= 3)
-                    this.currentSet++;
+                this.currentSet++;
                 this.p2Sets++; 
                 this.p1Gems = 0;
                 this.p2Gems = 0;
@@ -187,8 +185,7 @@ public class Match {
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                if(this.currentSet <= 3)
-                    this.currentSet++;
+                this.currentSet++;
                 this.p2Sets++;
                 this.p1Gems = 0;
                 this.p2Gems = 0;
@@ -196,7 +193,7 @@ public class Match {
             }
             else if(this.p1Gems == 6 && this.p2Gems == 6)
                 playTieBreak(); 
-                break;          // THIS LINE AJME MAJKO
+                break;          
         } 
     }
     
@@ -224,17 +221,16 @@ public class Match {
                             p1P++;
                         break;
                 }
-                this.serve = 1 - this.serve; 
+                this.serve = 1 - this.serve;    // Switch player to serve after each point in tie break
                        
-                // 2 points diff and reached a 7
-                if(Math.abs(p1P - p2P) >= 2 && (p1P == 7 || p2P == 7))
+                // 2 points diff and reached a 7 or more - Tir break end mechanism
+                if(Math.abs(p1P - p2P) >= 2 && (p1P >= 7 || p2P >= 7)) 
                 {
                     if(p1P > p2P)
                     {
                         this.p1ScoreSet[this.currentSet] = 7;
                         this.p2ScoreSet[this.currentSet] = 6;
-                        if(this.currentSet <= 3)
-                            this.currentSet++;
+                        this.currentSet++;
                         this.p1Sets++;
                         this.p1Gems = 0;
                         this.p2Gems = 0;
@@ -244,8 +240,7 @@ public class Match {
                     {
                         this.p1ScoreSet[this.currentSet] = 6;
                         this.p2ScoreSet[this.currentSet] = 7;
-                        if(this.currentSet <= 3)
-                            this.currentSet++;
+                        this.currentSet++;
                         this.p2Sets++;
                         this.p1Gems = 0;
                         this.p2Gems = 0;

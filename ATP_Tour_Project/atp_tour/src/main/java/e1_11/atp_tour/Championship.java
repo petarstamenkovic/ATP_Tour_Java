@@ -16,6 +16,7 @@ public class Championship {
     
     // Methods
 
+    // Standard constructor
     public Championship(ArrayList<Player> players, ArrayList<Tournament> tournaments) {
         this.players = players;
         this.tournaments = tournaments;
@@ -46,8 +47,7 @@ public class Championship {
                     String [] token = line.split(",");
                     Player player = new Player(Integer.parseInt(token[0]),token[1],token[2],token[3],Integer.parseInt(token[4]));
                     players.add(player);
-            }
-            
+            }     
         }
         else 
         {
@@ -66,16 +66,12 @@ public class Championship {
                     String [] token = line2.split(",");
                     Tournament tournament = new Tournament(token[0],token[1],token[2]);
                     tournaments.add(tournament);
-            }
-            
+            }   
         }
         else 
         {
             System.out.println("File does not exist!");
-        }
-        
-        
-        
+        }    
     }
         
     
