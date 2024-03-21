@@ -30,7 +30,7 @@ public class Match {
         this.p1Sets = 0;
         this.p2Sets = 0;
         this.currentSet = 0;
-        this.p1ScoreSet = new int[winSetNum+2]; // This is put +1 purely to escape the out of bounds error
+        this.p1ScoreSet = new int[winSetNum+2]; 
         this.p2ScoreSet = new int[winSetNum+2];
     }
     
@@ -138,15 +138,15 @@ public class Match {
                             break;
                         }
                     }
-                }
-                break;
-            }
+                }  
+                break; 
+            } 
         }
     }
     private void playSet()
     {
         this.serve = 0;
-        while(this.p1Gems < 7 && this.p2Gems < 7)
+        while(true)
         {
             this.playGame();
             this.serve = 1 - this.serve;
@@ -154,7 +154,8 @@ public class Match {
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                this.currentSet++;
+                if(this.currentSet <= 3)
+                    this.currentSet++;
                 this.p1Sets++;
                 this.p1Gems = 0;
                 this.p2Gems = 0;
@@ -164,7 +165,8 @@ public class Match {
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                this.currentSet++;
+                if(this.currentSet <= 3)
+                    this.currentSet++;
                 this.p1Sets++;
                 this.p1Gems = 0;
                 this.p2Gems = 0;
@@ -174,7 +176,8 @@ public class Match {
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                this.currentSet++;
+                if(this.currentSet <= 3)
+                    this.currentSet++;
                 this.p2Sets++; 
                 this.p1Gems = 0;
                 this.p2Gems = 0;
@@ -184,16 +187,17 @@ public class Match {
             {
                 this.p1ScoreSet[this.currentSet] = this.p1Gems;
                 this.p2ScoreSet[this.currentSet] = this.p2Gems;
-                this.currentSet++;
+                if(this.currentSet <= 3)
+                    this.currentSet++;
                 this.p2Sets++;
                 this.p1Gems = 0;
                 this.p2Gems = 0;
                 break;
             }
             else if(this.p1Gems == 6 && this.p2Gems == 6)
-                playTieBreak();
-              
-        }  
+                playTieBreak(); 
+                break;          // THIS LINE AJME MAJKO
+        } 
     }
     
     private void playTieBreak()
@@ -203,74 +207,51 @@ public class Match {
         this.serve = 0;
         while(true)
         {
-            switch(this.serve)
-            {
-                case 0 : // Player 1 to serve
-                    if(chanceEvent(p1.servePointChance(p2, this.matchSurface)))
-                        p1P++;
-                    else
-                        p2P++;
-                        
-                    // 2 points diff and reached a 7
-                    if(Math.abs(p1P - p2P) >= 2 && (p1P >= 7 || p2P >= 7))
-                    {
-                        if(p1P > p2P)
-                        {
-                            this.p1ScoreSet[this.currentSet] = 7;
-                            this.p2ScoreSet[this.currentSet] = 6;
-                            this.currentSet++;
-                            this.p1Sets++;
-                            this.p1Gems = 0;
-                            this.p2Gems = 0;
-                            break;
-                        }
-                        else 
-                        {
-                            this.p1ScoreSet[this.currentSet] = 6;
-                            this.p2ScoreSet[this.currentSet] = 7;
-                            this.currentSet++;
-                            this.p2Sets++;
-                            this.p1Gems = 0;
-                            this.p2Gems = 0;
-                            break;
-                        }
-                    }
-                    break;
-                    
-                case 1 : // Player 2 to serve
-                    if(chanceEvent(p2.servePointChance(p1, this.matchSurface)))
-                        p2P++;
-                    else
-                        p1P++;
-                        
-                    // 2 points diff and reached a 7
-                    if(Math.abs(p1P - p2P) >= 2 && (p1P == 7 || p2P == 7))
-                    {
-                        if(p1P > p2P)
-                        {
-                            this.p1ScoreSet[this.currentSet] = 7;
-                            this.p2ScoreSet[this.currentSet] = 6;
-                            this.currentSet++;
-                            this.p1Sets++;
-                            this.p1Gems = 0;
-                            this.p2Gems = 0;
-                            break;
-                        }
+                switch(this.serve)
+                {
+                    case 0 : // Player 1 to serve
+                        if(chanceEvent(p1.servePointChance(p2, this.matchSurface)))
+                            p1P++;
                         else
-                        {
-                            this.p1ScoreSet[this.currentSet] = 6;
-                            this.p2ScoreSet[this.currentSet] = 7;
-                            this.currentSet++;
-                            this.p2Sets++;
-                            this.p1Gems = 0;
-                            this.p2Gems = 0;
-                            break;
-                        }
-                    }
-                    break;
-                    
-            }
+                            p2P++;
+                        break;
+
+                    case 1 : // Player 2 to serve
+
+                        if(chanceEvent(p2.servePointChance(p1, this.matchSurface)))
+                            p2P++;
+                        else
+                            p1P++;
+                        break;
+                }
                 this.serve = 1 - this.serve; 
+                       
+                // 2 points diff and reached a 7
+                if(Math.abs(p1P - p2P) >= 2 && (p1P == 7 || p2P == 7))
+                {
+                    if(p1P > p2P)
+                    {
+                        this.p1ScoreSet[this.currentSet] = 7;
+                        this.p2ScoreSet[this.currentSet] = 6;
+                        if(this.currentSet <= 3)
+                            this.currentSet++;
+                        this.p1Sets++;
+                        this.p1Gems = 0;
+                        this.p2Gems = 0;
+                        break;
+                    }
+                    else
+                    {
+                        this.p1ScoreSet[this.currentSet] = 6;
+                        this.p2ScoreSet[this.currentSet] = 7;
+                        if(this.currentSet <= 3)
+                            this.currentSet++;
+                        this.p2Sets++;
+                        this.p1Gems = 0;
+                        this.p2Gems = 0;
+                        break;
+                    }
+                }        
         }
     }
    
@@ -286,6 +267,7 @@ public class Match {
         
     }
     
+    // Print out a match
     @Override
     public String toString()
     {

@@ -4,7 +4,7 @@ package e1_11.atp_tour;
 import java.util.ArrayList;
 
 
-public  class Tournament {
+public /*abstract*/ class Tournament {
     // Atributes
     protected String tourName;
     protected String tourType;
