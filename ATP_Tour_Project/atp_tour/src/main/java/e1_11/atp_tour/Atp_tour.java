@@ -24,6 +24,7 @@ public class Atp_tour {
         Championship champ = new Championship(players,tournaments);
         champ.loadFiles();
         
+        //////// HASH MAP /////////
         hash_tournaments.put("Australian Open", tournaments.get(0));
         hash_tournaments.put("Indian Wells Masters", tournaments.get(1));
         hash_tournaments.put("Miami Open", tournaments.get(2));
@@ -37,7 +38,8 @@ public class Atp_tour {
         hash_tournaments.put("US Open", tournaments.get(10));
         hash_tournaments.put("Shanghai Masters", tournaments.get(11));
         hash_tournaments.put("Paris Masters", tournaments.get(12));
-    
+        ///////////////////////////
+        
         
         Scanner sc = new Scanner(System.in);
         
@@ -72,19 +74,43 @@ public class Atp_tour {
             else
             {
                 Tournament curent_tournament = hash_tournaments.get(nameOfTournament);
+                if(curent_tournament == null)
+                {
+                    System.out.println("Invalid tournament name");
+                    continue;
+                }
                 SeasonTournament st = new SeasonTournament(nameOfTournament,curent_tournament.tourSurface, curent_tournament.tourType,players); // Here the playable will always be set to true!
                 st.play();
                 playedTournaments.add(nameOfTournament);
-                champ.updateAtpRanks();
+                champ.updateAtpPoints();
                 champ.recoverPlayers();
                 i++;
                 
             }
                 
         }
-            
+        
+        champ.updateAtpRank(); // Update the rankings (exact ranks of the players) after the seaoson tournaments   
         sc.close();
         System.out.println("Rankings after season tournaments : " + "\n" + players);
+        
+        // Putting players into groups
+        ArrayList<Player> newGroupA = new ArrayList<>();
+        ArrayList<Player> newGroupB = new ArrayList<>();
+        
+        for(int j = 0 ; j < 8 ; j++) 
+        {
+            if(j%2 == 0)
+                newGroupB.add(players.get(j));
+            else
+                newGroupA.add(players.get(j));
+        }
+        
+        // ATP Finals begins
+        
+        AtpFinals atpFinals = new AtpFinals("ATP Finals","hard","ATP FINALS",newGroupA,newGroupB);
+        atpFinals.play();
+        
         
         
         /*

@@ -23,10 +23,20 @@ public class Championship {
         this.tournaments = tournaments;
     }
     
-    public void updateAtpRanks()
+    public void updateAtpPoints()
     {
         Collections.sort(players);
-    } // Here you should call Collections.sort() and this happens at the end of every tournaments
+    }
+    
+    public void updateAtpRank()
+    {
+        for(int i = 0 ; i < this.players.size() ; i++)
+        {
+            this.players.get(i).setAtpRank(i+1);
+        }
+    }
+    
+    
     
     public void recoverPlayers()
     {
