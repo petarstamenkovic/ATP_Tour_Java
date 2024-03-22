@@ -4,7 +4,7 @@ package e1_11.atp_tour;
 import java.util.ArrayList;
 
 
-public /*abstract*/ class Tournament {
+public abstract class Tournament {
     // Atributes
     protected String tourName;
     protected String tourType;
@@ -18,7 +18,6 @@ public /*abstract*/ class Tournament {
         this.tourName = tourName;
         this.tourType = tourType;
         this.tourSurface = tourSurface;
-
     }
     
     public String getTourName() {
@@ -62,7 +61,7 @@ public /*abstract*/ class Tournament {
     }
     
     
-    //abstract public void play();
+    abstract public void play();
     
     
 }

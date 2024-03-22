@@ -121,7 +121,7 @@ public class Player implements Comparable<Player> {
     @Override
     public String toString()
     {
-        return "Igrac : " + this.name + "," + "Adut: " + this.ability + "," + "Atp Rank: " + this.atpRank + ":" + this.atpPoints + "," + "Prefered surface: " + this.preferedSurface;
+        return this.name + ", " + "ATP Rank: " + this.atpRank + ":" + "ATP Points : " + this.atpPoints + "\n";
     }
     
     
@@ -130,9 +130,9 @@ public class Player implements Comparable<Player> {
     public int compareTo(Player p2)
     {
         if (this.atpPoints > p2.atpPoints) 
-                return 1;
-        else 
                 return -1;
+        else 
+                return 1;
     
     }
     

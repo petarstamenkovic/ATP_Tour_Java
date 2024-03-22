@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Championship {
@@ -22,11 +23,14 @@ public class Championship {
         this.tournaments = tournaments;
     }
     
-    public void updateAtpRanks(){} // Here you should call Collections.sort() and this happens at the end of every tournaments
+    public void updateAtpRanks()
+    {
+        Collections.sort(players);
+    } // Here you should call Collections.sort() and this happens at the end of every tournaments
     
     public void recoverPlayers()
     {
-        for(int i = 0 ; i<= players.size() ; i++)
+        for(int i = 0 ; i< players.size() ; i++)
         {
             if(players.get(i).isInjured())
                 players.get(i).setInjured(true);
@@ -64,7 +68,7 @@ public class Championship {
             while((line2 = in.readLine()) != null)
             {
                     String [] token = line2.split(",");
-                    Tournament tournament = new Tournament(token[0],token[1],token[2]);
+                    Tournament tournament = new SeasonTournament(token[0],token[1],token[2],players); // Polimorfizam
                     tournaments.add(tournament);
             }   
         }
@@ -72,6 +76,12 @@ public class Championship {
         {
             System.out.println("File does not exist!");
         }    
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Ranking after season tournaments : " + "\n" + players;
     }
         
     
