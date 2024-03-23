@@ -1,4 +1,3 @@
-
 package e1_11.atp_tour;
 
 public class Player implements Comparable<Player> {
@@ -11,7 +10,6 @@ public class Player implements Comparable<Player> {
     private boolean injured;
     
     // Methods
-    
     // Setters and getters for all atributes
     public String getName() {
         return name;
@@ -78,9 +76,7 @@ public class Player implements Comparable<Player> {
         
         // Check players adut on his serve
         switch(this.ability)
-        {
-            //case "backhand" -> winChance = winChance - 8;
-                
+        {       
             case "forehand" -> winChance = winChance + 10;
                 
             case "serve" -> winChance = winChance + 15;
@@ -93,7 +89,7 @@ public class Player implements Comparable<Player> {
         {
             case "backhand" -> winChance = winChance - 8;
             
-            case "serve" -> winChance = winChance + 5;
+            case "serve" -> winChance = winChance - 5;
             
             case "mentality" -> winChance = winChance - 10;
         }
@@ -125,7 +121,7 @@ public class Player implements Comparable<Player> {
     }
     
     
-    // Sorting players by their atpPoints - to be tested when you finish a seasonTournament
+    // Sorting players by their atpPoints using Comparable interface
     @Override
     public int compareTo(Player p2)
     {

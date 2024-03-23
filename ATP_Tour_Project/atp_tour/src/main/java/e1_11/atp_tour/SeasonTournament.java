@@ -16,7 +16,7 @@ public class SeasonTournament extends Tournament {
     public SeasonTournament(String tourName, String tourType , String tourSurface, ArrayList<Player> roundOf16)
     {
         super(tourName,tourType,tourSurface); // Call constructor of tournament
-        this.roundOf16 = roundOf16;     // Does this copies a reference as original?
+        this.roundOf16 = roundOf16;     // Copy the reference - This atribute roundOf16 matches the roundOf16 parameter to be called in simulation
         this.quaterFinalists = new ArrayList<>();
         this.semiFinalists = new ArrayList<>();
         this.finalists = new ArrayList<>();
@@ -27,7 +27,7 @@ public class SeasonTournament extends Tournament {
     {
         int numSet = 0;
         int numOfMatches = 0;
-        switch(this.tourType)
+        switch(this.tourType)   // Declare the number of sets in case its Masters or Grandslam
         {
             case "Grand Slam" : 
                 numSet = 3;
@@ -38,7 +38,7 @@ public class SeasonTournament extends Tournament {
                 break;
         }
         
-        Collections.shuffle(roundOf16);
+        Collections.shuffle(roundOf16);     // Shuffle the player order in list and then pull them out in order
         
         // Round of 16
         numOfMatches = this.roundOf16.size()/2;
@@ -153,8 +153,6 @@ public class SeasonTournament extends Tournament {
                 p2.setAtpPoints(p1.getAtpPoints() + 2000);
                 p1.setAtpPoints(p2.getAtpPoints() + 1200);
             }        
-        }
-        
-        
-    } // Simulate quater, semi and finals, create a copy of smaller arrays
+        }      
+    } 
 }

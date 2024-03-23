@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 public class Atp_tour {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { // NetBeans added this as precaution 
         
  
         int numOfSeasonTournaments;
@@ -24,7 +24,7 @@ public class Atp_tour {
         Championship champ = new Championship(players,tournaments);
         champ.loadFiles();
         
-        //////// HASH MAP /////////
+        //////// HASH MAP - Copy from tournament list in hash map and make the name of tournament a key /////////
         hash_tournaments.put("Australian Open", tournaments.get(0));
         hash_tournaments.put("Indian Wells Masters", tournaments.get(1));
         hash_tournaments.put("Miami Open", tournaments.get(2));
@@ -38,18 +38,17 @@ public class Atp_tour {
         hash_tournaments.put("US Open", tournaments.get(10));
         hash_tournaments.put("Shanghai Masters", tournaments.get(11));
         hash_tournaments.put("Paris Masters", tournaments.get(12));
-        ///////////////////////////
-        
-        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+         
         Scanner sc = new Scanner(System.in);
         
         do{
             System.out.print("Enter the number of season tournaments to be played: ");    
-            if(sc.hasNextInt())
+            if(sc.hasNextInt()) // Check if an input is integer
             {
                 numOfSeasonTournaments = sc.nextInt();
             }
-            else
+            else    // Removes whats in the buffer as i understood and -1 simply continues the loop
             {
                 System.out.println("Number of tournaments must be an integer value.");
                 sc.next();
@@ -57,13 +56,13 @@ public class Atp_tour {
             }
         }
         while(numOfSeasonTournaments < 4 || numOfSeasonTournaments > 13);
-        System.out.println("Odigrace se " + numOfSeasonTournaments + " sezonskih turnira.");
+        System.out.println("In current season we will have " + numOfSeasonTournaments + " season tournaments.");
         
-        sc.nextLine();
+        sc.nextLine(); // Allow the input for the name of the tournament
         
         // Season tournaments begining
         int i = 0;
-        while(i < numOfSeasonTournaments)
+        while(i < numOfSeasonTournaments)  // Use while instead of for loop beacuse of already playable option
         {
             System.out.println("Enter the name of the tournament.");
             nameOfTournament = sc.nextLine();
@@ -73,19 +72,18 @@ public class Atp_tour {
             }
             else
             {
-                Tournament curent_tournament = hash_tournaments.get(nameOfTournament);
-                if(curent_tournament == null)
+                Tournament curent_tournament = hash_tournaments.get(nameOfTournament); // Fetch the required tournament object by its name (key)
+                if(curent_tournament == null) // Null comes out if you type the name wrong
                 {
                     System.out.println("Invalid tournament name");
                     continue;
                 }
-                SeasonTournament st = new SeasonTournament(nameOfTournament,curent_tournament.tourSurface, curent_tournament.tourType,players); // Here the playable will always be set to true!
+                SeasonTournament st = new SeasonTournament(nameOfTournament,curent_tournament.tourSurface, curent_tournament.tourType,players); // Here the playable will always be set to true, so thats why i use set for this purpose!
                 st.play();
                 playedTournaments.add(nameOfTournament);
-                champ.updateAtpPoints();
-                champ.recoverPlayers();
-                i++;
-                
+                champ.updateAtpPoints();    // Update ATP list after every tournament
+                champ.recoverPlayers();     // Recover injured players before the next tournament
+                i++;     
             }
                 
         }
@@ -106,23 +104,30 @@ public class Atp_tour {
                 newGroupA.add(players.get(j));
         }
         
-        // ATP Finals begins
+        System.out.println("ATP Finals tournament begins...." + "\n");
+        System.out.println("====================================");
         
+        // ATP Finals begins
         AtpFinals atpFinals = new AtpFinals("ATP Finals","hard","ATP FINALS",newGroupA,newGroupB);
         atpFinals.play();
+        // Here we dont have to print out score and matches so here we just print atp finals draw
+        System.out.println("Group A : " + "\n" + newGroupA);
+        System.out.println("====================================");
+        System.out.println("Group B : " + "\n" + newGroupB);
+        System.out.println("====================================");
+        System.out.println("Semifinalists : " + "\n" + atpFinals.getSemiFinalists());
+        System.out.println("====================================");
+        System.out.println("Finalists : " + "\n" + atpFinals.getFinalists());
+        System.out.println("====================================");
+        System.out.println("Champion of ATP Finals tournaments is : " + atpFinals.getChampion());
+        System.out.println("====================================");
         
+        champ.updateAtpPoints();
+        champ.updateAtpRank();
         
-        
-        /*
-        for(int i = 0; i<= 7 ; i++)
-        {
-            Match m1 = new Match(players.get(i),players.get(i+1),3,"hard");
-            m1.playMatch();
-            System.out.println("""
-                               Match stats -> 
-                               """ + m1);
-        }
-        */
-        
+        System.out.println("Final ranking is : " + "\n" + players + "\n");
+        System.out.println("====================================");
+        System.out.println("Seasonal winner is : " + players.get(0));
+       
     }
 }

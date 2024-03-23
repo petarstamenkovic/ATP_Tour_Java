@@ -30,14 +30,13 @@ public class Match {
         this.p1Sets = 0;
         this.p2Sets = 0;
         this.currentSet = 0;                    // The set that is currently being played, used for indexing the p1ScoreSet and p2ScoreSet
-        this.p1ScoreSet = new int[winSetNum+2]; 
+        this.p1ScoreSet = new int[winSetNum+2]; // +2 beacuse if its a best of 3 , max amount of sets is 5(3+2)
         this.p2ScoreSet = new int[winSetNum+2];
     }
     
     public Player playMatch()
     {
-        
-        // 1% chance of injuries on both players
+        // 1% chance of injuries on both players - If a player is injured there will be zero games played but the sets will show who is injured
         Random rand = new Random();
         int injury = 1 + rand.nextInt(100);
         if(injury == 1)
@@ -68,10 +67,10 @@ public class Match {
                 return p2;
             }
         }   
-        return null;
+        return null;    
     }
     
-    private void playGame()
+    private void playGame() // Due to a fact that im not printing points in score, im using 0,1,2,3,4(0,15,30,40,win)
     {
         int p1Points = 0;
         int p2Points = 0;
@@ -204,6 +203,7 @@ public class Match {
         this.serve = 0;
         while(true)
         {
+                // Switch block used for winning points
                 switch(this.serve)
                 {
                     case 0 : // Player 1 to serve
@@ -214,7 +214,6 @@ public class Match {
                         break;
 
                     case 1 : // Player 2 to serve
-
                         if(chanceEvent(p2.servePointChance(p1, this.matchSurface)))
                             p2P++;
                         else

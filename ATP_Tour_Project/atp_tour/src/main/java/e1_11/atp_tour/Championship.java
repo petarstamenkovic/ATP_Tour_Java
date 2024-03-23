@@ -16,18 +16,19 @@ public class Championship {
     private ArrayList<Tournament> tournaments;
     
     // Methods
-
     // Standard constructor
     public Championship(ArrayList<Player> players, ArrayList<Tournament> tournaments) {
         this.players = players;
         this.tournaments = tournaments;
     }
     
+    // Method that updates a list by ATP Points
     public void updateAtpPoints()
     {
         Collections.sort(players);
     }
     
+    // After sorting a list by ATP points, just fix the ATP Ranks
     public void updateAtpRank()
     {
         for(int i = 0 ; i < this.players.size() ; i++)
@@ -35,8 +36,6 @@ public class Championship {
             this.players.get(i).setAtpRank(i+1);
         }
     }
-    
-    
     
     public void recoverPlayers()
     {
