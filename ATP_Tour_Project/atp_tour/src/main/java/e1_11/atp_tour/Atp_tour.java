@@ -89,7 +89,7 @@ public class Atp_tour {
         }
         
         champ.updateAtpRank(); // Update the rankings (exact ranks of the players) after the seaoson tournaments   
-        sc.close();
+        //sc.close();
         System.out.println("Rankings after season tournaments : " + "\n" + players);
         
         // Putting players into groups
@@ -103,6 +103,9 @@ public class Atp_tour {
             else
                 newGroupA.add(players.get(j));
         }
+        
+        System.in.read();  // Wait for any press before ATP Finals
+        sc.close();        // Close keyboard input, no more inputs required
         
         System.out.println("ATP Finals tournament begins...." + "\n");
         System.out.println("====================================");

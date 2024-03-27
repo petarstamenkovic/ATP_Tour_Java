@@ -1,6 +1,7 @@
 package e1_11.atp_tour;
 
-public class Player implements Comparable<Player> {
+
+public class Player implements Comparable<Player>{
     // Atributes
     private String name;
     private String ability;
@@ -8,6 +9,7 @@ public class Player implements Comparable<Player> {
     private int atpRank;
     private int atpPoints;
     private boolean injured;
+    private int groupWin;
     
     // Methods
     // Setters and getters for all atributes
@@ -59,6 +61,15 @@ public class Player implements Comparable<Player> {
         this.injured = injured;
     }
 
+    public int getGroupWin() {
+        return groupWin;
+    }
+
+    public void setGroupWin(int groupWin) {
+        this.groupWin = groupWin;
+    }
+
+    
     // Constructor with parameters
     public Player(int atpRank, String name, String ability, String preferedSurface, int atpPoints) {
         this.name = name;
@@ -66,6 +77,7 @@ public class Player implements Comparable<Player> {
         this.preferedSurface = preferedSurface;
         this.atpRank = atpRank;
         this.atpPoints = atpPoints;
+        this.groupWin = -1;
     }
     
     // Method that calucaltes the chance of winning a point on serve
@@ -117,7 +129,10 @@ public class Player implements Comparable<Player> {
     @Override
     public String toString()
     {
-        return this.name + ", " + "ATP Rank: " + this.atpRank + ":" + "ATP Points : " + this.atpPoints + "\n";
+        if(this.groupWin>=0)
+            return this.name + ", " + "ATP Rank: " + this.atpRank + ":" + "ATP Points : " + this.atpPoints + " Group wins : " + this.groupWin + "\n";
+        else
+            return this.name + ", " + "ATP Rank: " + this.atpRank + ":" + "ATP Points : " + this.atpPoints + "\n";
     }
     
     
@@ -131,5 +146,7 @@ public class Player implements Comparable<Player> {
                 return 1;
     
     }
+    
+
     
 }

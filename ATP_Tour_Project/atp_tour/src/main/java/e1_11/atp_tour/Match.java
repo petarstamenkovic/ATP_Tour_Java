@@ -44,6 +44,7 @@ public class Match {
             this.p1.setInjured(true);
             this.p2Sets = this.winSetNum;
             this.p1Sets = 0;
+            System.out.println(p1.getName() + " got injured and backed off!");
             return p2;
         }
         else if(injury == 2)
@@ -51,6 +52,7 @@ public class Match {
             this.p2.setInjured(true);
             this.p1Sets = this.winSetNum;
             this.p2Sets = 0;
+            System.out.println(p2.getName() + " got injured and backed off!");
             return p1;
         }
         
